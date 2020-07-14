@@ -1,0 +1,57 @@
+{
+  "requirements": [{
+    "description": "A pessoa que joga deve preencher as informações para iniciar um jogo",
+    "bonus": false
+  }, {
+    "description": "A pessoa que joga deve ter acesso à tela de configurações através da tela inicial",
+    "bonus": false
+  }, {
+    "description": "A pessoa jogadora deve iniciar um jogo",
+    "bonus": false
+  }, {
+    "description": "O _header_ deve conter as informações da pessoa jogadora",
+    "bonus": false
+  }, {
+    "description": "A página deve conter as informações relacionadas à pergunta",
+    "bonus": false
+  }, {
+    "description": "Só deve ser possível escolher uma resposta correta por pergunta",
+    "bonus": false
+  }, {
+    "description": "Ao clicar em uma resposta, a resposta correta deve ficar verde e as incorretas, vermelhas",
+    "bonus": false
+  }, {
+    "description": "A pessoa que joga tem 30 segundos para responder cada pergunta",
+    "bonus": false
+  }, {
+    "description": "Ao clicar na resposta correta, pontos devem ser somados no placar da pessoa que está jogando",
+    "bonus": false
+  }, {
+    "description": "Após a resposta ser dada, o botão \"Próxima\" deve aparecer",
+    "bonus": false
+  }, {
+    "description": "A pessoa que joga deve responder 5 perguntas no total",
+    "bonus": false
+  }, {
+    "description": "O _header_ de _feedback_ deve conter as informações da pessoa jogadora",
+    "bonus": false
+  }, {
+    "description": "A pessoa deve ver a mensagem de _feedback_",
+    "bonus": false
+  }, {
+    "description": "A pessoa jogadora deve ver as informações relacionadas aos resultados obtidos",
+    "bonus": false
+  }, {
+    "description": "A pessoa jogadora tem a opção de jogar novamente",
+    "bonus": false
+  }, {
+    "description": "A pessoa jogadora tem a opção de visualizar a tela de _ranking_",
+    "bonus": false
+  }, {
+    "description": "Deve existir um botão para ir ao início",
+    "bonus": false
+  }, {
+    "description": "Apresentação do _ranking_",
+    "bonus": false
+  }]
+}
