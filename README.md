@@ -35,7 +35,7 @@ https://www.figma.com/file/9XUqIwKEFBfbZn5t8MMZJY/Trivia---project?node-id=0%3A1
 
 ### Data de Entrega
 
-O projeto tem até a seguinte data: `dd/mm/yyyy - 14:00h`. Para ser entregue a avaliação final.
+O projeto tem até a seguinte data: `28/07/2020 - 14:00h`. Para ser entregue a avaliação final.
 
 
 ## Desenvolvimento e testes
