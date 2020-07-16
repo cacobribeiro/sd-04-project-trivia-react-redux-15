@@ -5,16 +5,18 @@ import changeScore from '../actions/PlayerAction';
 import { fetchQuestions } from '../actions/QuestionsAction';
 
 class Game extends Component {
-  componentDidMount() {
-    const { getScoreGamer, getQuestions } = this.props;
-    getScoreGamer();
-    getQuestions();
+  componentDidUpdate(prevProps) {
+    const { getQuestions, token } = this.props;
+    if (prevProps.token !== token) {
+      getQuestions(token);
+    }
   }
 
   render() {
     const { token, isFetching, score } = this.props;
     if (isFetching) return <div>Loading</div>;
     localStorage.setItem('token', token);
+    console.log(`token depois do render: ${token}`);
     return (
       <div>
         Jogo
@@ -38,7 +40,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   getScoreGamer: () => dispatch(changeScore()),
-  getQuestions: () => dispatch(fetchQuestions()),
+  getQuestions: (token) => dispatch(fetchQuestions(token)),
 });
 
 Game.propTypes = {
