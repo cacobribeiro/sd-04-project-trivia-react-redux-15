@@ -2,11 +2,13 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import changeScore from '../actions/PlayerAction';
+import { fetchQuestions } from '../actions/QuestionsAction';
 
 class Game extends Component {
   componentDidMount() {
-    const { getScoreGamer } = this.props;
+    const { getScoreGamer, getQuestions } = this.props;
     getScoreGamer();
+    getQuestions();
   }
 
   render() {
@@ -36,6 +38,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   getScoreGamer: () => dispatch(changeScore()),
+  getQuestions: () => dispatch(fetchQuestions()),
 });
 
 Game.propTypes = {
