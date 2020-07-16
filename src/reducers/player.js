@@ -2,10 +2,10 @@ const { CHANGE_SCORE } = require('../actions/PlayerAction');
 
 const INITIAL_STATE = {
   player: {
-    name: "",
-    assertions: "",
+    name: '',
+    assertions: '',
     score: 0,
-    gravatarEmail: "",
+    gravatarEmail: '',
   },
 };
 
@@ -13,7 +13,7 @@ const player = (state = INITIAL_STATE, action) => {
   console.log('score funcionando');
   switch (action.type) {
     case CHANGE_SCORE:
-      return {...state};
+      return { ...state };
     default:
       return state;
   }
