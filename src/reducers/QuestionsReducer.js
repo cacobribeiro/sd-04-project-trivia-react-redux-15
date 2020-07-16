@@ -23,4 +23,4 @@ const questionApi = (state = INITIAL_STATE, action) => {
   }
 };
 
-export default tokenApi;
+export default questionApi;
