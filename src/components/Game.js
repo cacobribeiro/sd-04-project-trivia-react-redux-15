@@ -2,17 +2,22 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { changeScore } from '../actions/PlayerAction';
+import { fetchQuestions } from '../actions/QuestionsAction';
+
 
 class Game extends Component {
-  componentDidMount() {
-    const { getScoreGamer } = this.props;
-    getScoreGamer();
+  componentDidUpdate(prevProps) {
+    const { getQuestions, token } = this.props;
+    if (prevProps.token !== token) {
+      getQuestions(token);
+    }
   }
 
   render() {
     const { token, isFetching, score, gamerName } = this.props;
     if (isFetching) return <div>Loading</div>;
     localStorage.setItem('token', token);
+    console.log(`token depois do render: ${token}`);
     return (
       <div>
         Jogo
@@ -38,6 +43,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   getScoreGamer: () => dispatch(changeScore()),
+  getQuestions: (token) => dispatch(fetchQuestions(token)),
 });
 
 Game.propTypes = {
