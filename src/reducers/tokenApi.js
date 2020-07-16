@@ -1,5 +1,4 @@
-import {
-  REQUEST_TOKEN, RECEIVE_TOKEN } from '../actions/';
+import { REQUEST_TOKEN, RECEIVE_TOKEN } from '../actions/';
 
 const INITIAL_STATE = {
   isFetching: true,
