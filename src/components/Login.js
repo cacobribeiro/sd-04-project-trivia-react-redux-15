@@ -3,24 +3,18 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { fetchToken } from '../actions/index';
+import { changeNameAction, changeEmailAction } from '../actions/PlayerAction';
 
 class Login extends Component {
   constructor(props) {
     super(props);
-    this.state = { gamerName: '', gamerEmail: '' };
-    this.handle = this.handle.bind(this);
     this.buttonFunction = this.buttonFunction.bind(this);
   }
 
-  handle(event) {
-    const { name, value } = event.target;
-    this.setState({ [name]: value });
-  }
-
-  buttonFunction(state) {
+  buttonFunction({ gamerName, gamerEmail }) {
     const { getTokenGamer } = this.props;
-    return state.gamerEmail !== '' && state.gamerName !== '' ? (
-      <Link to="/game-screen">
+    return gamerEmail !== '' && gamerName !== '' ? (
+      <Link to={'/game-screen'}>
         <button type="submit" data-testid="btn-play" onClick={() => getTokenGamer()}>
           Jogar
         </button>
@@ -33,7 +27,7 @@ class Login extends Component {
   }
 
   render() {
-    const { handle } = this;
+    const { gamerEmail, gamerName } = this.props;
     return (
       <div>
         <label htmlFor="gamerName">
@@ -43,7 +37,7 @@ class Login extends Component {
             required="required"
             name="gamerName"
             data-testid="input-player-name"
-            onChange={(e) => handle(e)}
+            onChange={(e) => this.props.changeName(e.target.value)}
           />
         </label>
         <label htmlFor="gamerEmail">
@@ -53,10 +47,10 @@ class Login extends Component {
             required="required"
             name="gamerEmail"
             data-testid="input-gravatar-email"
-            onChange={(e) => handle(e)}
+            onChange={(e) => this.props.changeEmail(e.target.value)}
           />
         </label>
-        {this.buttonFunction(this.state)}
+        {this.buttonFunction({ gamerName, gamerEmail })}
         <Link to="/settings">
           <button data-testid="btn-settings">Settings</button>
         </Link>
@@ -65,12 +59,23 @@ class Login extends Component {
   }
 }
 
+const mapStateToProps = (state) => ({
+  gamerName: state.player.name,
+  gamerEmail: state.player.gravatarEmail,
+});
+
 const mapDispatchToProps = (dispatch) => ({
   getTokenGamer: () => dispatch(fetchToken()),
+  changeName: (obj) => dispatch(changeNameAction(obj)),
+  changeEmail: (obj) => dispatch(changeEmailAction(obj)),
 });
 
 Login.propTypes = {
   getTokenGamer: PropTypes.func.isRequired,
+  gamerName: PropTypes.string.isRequired,
+  gamerEmail: PropTypes.string.isRequired,
+  changeName: PropTypes.func.isRequired,
+  changeEmail: PropTypes.func.isRequired,
 };
 
-export default connect(null, mapDispatchToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
