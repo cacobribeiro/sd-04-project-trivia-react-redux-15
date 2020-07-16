@@ -1,4 +1,4 @@
-import QuestionsApi from '../services/QuestionsApi';
+import questionsApi from '../services/QuestionsApi';
 
 export const REQUEST_QUESTIONS = 'REQUEST_QUESTIONS';
 export const REQUEST_QUESTIONS_SUCESS = 'REQUEST_QUESTIONS_SUCESS';
@@ -12,10 +12,10 @@ const requestQuestionsSucess = (data) => ({
   data,
 });
 
-export function fetchQuestions() {
+export function fetchQuestions(token) {
   return (dispatch) => {
     dispatch(requestQuestions());
 
-    return QuestionsApi().then((results) => dispatch(requestQuestionsSucess(results)));
+    return questionsApi(token).then((results) => dispatch(requestQuestionsSucess(results)));
   };
 }
