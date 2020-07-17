@@ -35,21 +35,20 @@ class Questions extends React.Component {
   timerQuestion() {
     this.timer = setInterval(() => {
       const { index } = this.state;
-      this.setState({ index: index + 1 });
+      this.setState({ index: index + 1, clockTimer: 30 });
     }, 30000);
   }
 
   render() {
     const { data, QuestionsLoading } = this.props;
     const { index, clockTimer } = this.state;
-    console.log(index);
     if (QuestionsLoading) return <p>L O A D I N G . . . </p>;
     const questions = [...data[index].incorrect_answers, data[index].correct_answer].sort();
     return (
       <div>
         <div>
+          <p> Remaining: {clockTimer}</p>
           <h2 data-testid="question-text">{data[index].question}</h2>
-          <p>{clockTimer}</p>
           <small data-testid="question-category">{data[index].category}</small>
         </div>
         {questions.map((e, indexWrong) => {
