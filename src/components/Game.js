@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import MD5 from 'crypto-js/md5';
 import { changeScore } from '../actions/PlayerAction';
 import { fetchQuestions } from '../actions/QuestionsAction';
+import Questions from './Question';
 
 class Game extends Component {
   constructor(props) {
@@ -43,6 +44,7 @@ class Game extends Component {
             <p data-testid="header-score">Pontos: {score}</p>
           </span>
         </header>
+        <Questions />
       </div>
     );
   }

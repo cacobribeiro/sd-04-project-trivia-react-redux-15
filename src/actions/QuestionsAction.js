@@ -16,6 +16,6 @@ export function fetchQuestions(token) {
   return (dispatch) => {
     dispatch(requestQuestions());
 
-    return questionsApi(token).then((results) => dispatch(requestQuestionsSucess(results)));
+    return questionsApi(token).then((data) => dispatch(requestQuestionsSucess(data)));
   };
 }

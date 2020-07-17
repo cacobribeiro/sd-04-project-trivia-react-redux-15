@@ -1,11 +1,11 @@
 import { REQUEST_QUESTIONS, REQUEST_QUESTIONS_SUCESS } from '../actions/QuestionsAction';
 
-const INITIAL_STATE = {
-  data: [],
+const INITIAL_STATES = {
+  data: '',
   QuestionsLoading: true,
 };
 
-const questionApi = (state = INITIAL_STATE, action) => {
+export const questionApi = (state = INITIAL_STATES, action) => {
   switch (action.type) {
     case REQUEST_QUESTIONS:
       return {
@@ -15,8 +15,8 @@ const questionApi = (state = INITIAL_STATE, action) => {
     case REQUEST_QUESTIONS_SUCESS:
       return {
         ...state,
+        data: action.data.results,
         QuestionsLoading: false,
-        data: action.data,
       };
     default:
       return state;
