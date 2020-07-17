@@ -1,10 +1,11 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 
 function Questions({ data, QuestionsLoading }) {
   let index = 1;
   if (QuestionsLoading) return <p>L O A D I N G . . . </p>;
-  if (data[index].type === 'boolean')
+  if (data[index].type === 'boolean') {
     return (
       <div>
         <div>
@@ -16,7 +17,7 @@ function Questions({ data, QuestionsLoading }) {
         <button>FALSE</button>
       </div>
     );
-
+  }
   const questions = [...data[index].incorrect_answers, data[index].correct_answer].sort();
   return (
     <div>
@@ -31,6 +32,11 @@ function Questions({ data, QuestionsLoading }) {
     </div>
   );
 }
+
+Questions.propTypes = {
+  QuestionsLoading: PropTypes.bool.isRequired,
+  data: PropTypes.string,
+};
 
 const mapStateToProps = (state) => ({
   data: state.questionApi.data,
