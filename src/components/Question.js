@@ -9,8 +9,8 @@ function Questions({ data, QuestionsLoading }) {
     return (
       <div>
         <div>
-          <h2>{data[index].question}</h2>
-          <small>{data[index].category}</small>
+          <h2 data-testid="question-text">{data[index].question}</h2>
+          <small data-testid="question-category">{data[index].category}</small>
           <small>{data[index].difficulty}</small>
         </div>
         <button>TRUE</button>
@@ -26,9 +26,13 @@ function Questions({ data, QuestionsLoading }) {
         <small>{data[index].category}</small>
         <small>{data[index].difficulty}</small>
       </div>
-      {questions.map((e) => (
-        <button>{e}</button>
-      ))}
+      {console.log(questions)}
+      {questions.map((e, indexWrong) => {
+        if (data[index].correct_answer === e) {
+          return <button data-testid="correct-answer">{e}</button>;
+        }
+        return <button data-testid={`wrong-answer-${indexWrong}`}>{e}</button>;
+      })}
     </div>
   );
 }
