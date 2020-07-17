@@ -10,9 +10,6 @@ class Questions extends React.Component {
     };
     this.timeOut = this.timeOut.bind(this);
   }
-  componentDidMount() {
-    this.timeOut();
-  }
 
   timeOut() {
     const { index } = this.state;
@@ -25,6 +22,7 @@ class Questions extends React.Component {
   render() {
     const { data, QuestionsLoading } = this.props;
     const { index } = this.state;
+    this.timeOut();
     if (QuestionsLoading) return <p>L O A D I N G . . . </p>;
     const questions = [...data[index].incorrect_answers, data[index].correct_answer].sort();
     return (
