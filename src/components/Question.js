@@ -6,32 +6,42 @@ class Questions extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      clockTimer: 30,
       index: 0,
     };
-    this.time = this.time.bind(this);
+    this.timerQuestion = this.timerQuestion.bind(this);
   }
 
   componentDidMount() {
-    this.time();
+    this.timerQuestion();
+    this.clockQuestion();
   }
 
-  time() {
+  componentDidUpdate() {
+    const { index, clockTimer } = this.state;
+    if (index === 4 || clockTimer === 0) {
+      clearInterval(this.timer, this.clock);
+    }
+  }
+
+  clockQuestion() {
+    this.setState({ clockTimer: 30 });
+    this.clock = setInterval(() => {
+      const { clockTimer } = this.state;
+      this.setState({ clockTimer: clockTimer + 1 });
+    }, 30000);
+  }
+
+  timerQuestion() {
     this.timer = setInterval(() => {
       const { index } = this.state;
       this.setState({ index: index + 1 });
     }, 30000);
   }
 
-  componentDidUpdate() {
-    const { index } = this.state;
-    if (index === 4) {
-      clearInterval(this.timer);
-    }
-  }
-
   render() {
     const { data, QuestionsLoading } = this.props;
-    const { index } = this.state;
+    const { index, clockTimer } = this.state;
     console.log(index);
     if (QuestionsLoading) return <p>L O A D I N G . . . </p>;
     const questions = [...data[index].incorrect_answers, data[index].correct_answer].sort();
@@ -39,6 +49,7 @@ class Questions extends React.Component {
       <div>
         <div>
           <h2 data-testid="question-text">{data[index].question}</h2>
+          {clockTimer}
           <small data-testid="question-category">{data[index].category}</small>
         </div>
         {questions.map((e, indexWrong) => {
