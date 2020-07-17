@@ -3,30 +3,28 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 function Questions({ data, QuestionsLoading }) {
-
-  function handleButton(answer) {
-    selectAnswer(answer);
-  }
-
   function selectAnswer(answer) {
     console.log('Escolhi a alternativa:');
     console.log(answer);
     const alternatives = document.querySelector('.question-answers').childNodes;
     console.log(alternatives);
     // disabled outras alternativas
-    for (let index = 0; index < alternatives.length; index++) {
+    for (let index = 0; index < alternatives.length; index += 1) {
       if (alternatives[index].innerText !== answer) {
         alternatives[index].disabled = true;
       }
     }
     // mudando o border
-    for (let index = 0; index < alternatives.length; index++) {
+    for (let index = 0; index < alternatives.length; index += 1) {
       if (alternatives[index].id === 'correct-answer') {
         alternatives[index].style.border = '3px solid rgb(6, 240, 15';
       } else {
         alternatives[index].style.border = '3px solid rgb(255, 0, 0)';
       }
     }
+  }
+  function handleButton(answer) {
+    selectAnswer(answer);
   }
 
   const index = 0;
