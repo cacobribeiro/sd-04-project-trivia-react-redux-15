@@ -3,7 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 function Questions({ data, QuestionsLoading }) {
-  let index = 1;
+  const index = 1;
   if (QuestionsLoading) return <p>L O A D I N G . . . </p>;
   if (data[index].type === 'boolean') {
     return (
@@ -35,7 +35,7 @@ function Questions({ data, QuestionsLoading }) {
 
 Questions.propTypes = {
   QuestionsLoading: PropTypes.bool.isRequired,
-  data: PropTypes.string,
+  data: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({
