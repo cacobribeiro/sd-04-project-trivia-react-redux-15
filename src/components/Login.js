@@ -19,9 +19,8 @@ class Login extends Component {
           Jogar
         </button>
       </Link>
-    ) : (
-        <button type="button" disabled="disabled" data-testid="btn-play">
-          Jogar
+    ) : (<button type="button" disabled="disabled" data-testid="btn-play">
+      Jogar
         </button>
       );
   }
