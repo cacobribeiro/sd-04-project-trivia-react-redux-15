@@ -15,11 +15,12 @@ class Questions extends React.Component {
     this.time();
   }
 
-  time = () =>
-    (this.timer = setInterval(() => {
+  time() {
+    this.timer = setInterval(() => {
       const { index } = this.state;
       this.setState({ index: index + 1 });
-    }, 30000));
+    }, 30000);
+  }
 
   componentDidUpdate() {
     const { index } = this.state;
