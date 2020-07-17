@@ -19,8 +19,11 @@ class Questions extends React.Component {
 
   componentDidUpdate() {
     const { index, clockTimer } = this.state;
-    if (index === 4 || clockTimer === 0) {
+    if (index === 4) {
       clearInterval(this.timer, this.clock);
+    }
+    if (clockTimer === 0) {
+      clearInterval(this.clock);
     }
   }
 
