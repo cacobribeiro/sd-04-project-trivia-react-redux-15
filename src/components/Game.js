@@ -1,16 +1,33 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import MD5 from 'crypto-js/md5';
 import { changeScore } from '../actions/PlayerAction';
 import { fetchQuestions } from '../actions/QuestionsAction';
 import Questions from './Question';
 
 class Game extends Component {
+  constructor(props) {
+    super(props);
+    this.getAvatar = this.getAvatar.bind(this);
+  }
   componentDidUpdate(prevProps) {
     const { getQuestions, token } = this.props;
     if (prevProps.token !== token) {
       getQuestions(token);
     }
+  }
+
+  getAvatar() {
+    const { gamerEmail } = this.props;
+    const hash = MD5(gamerEmail.trim().toLowerCase());
+    return (
+      <img
+        data-testid="header-profile-picture"
+        src={`https://www.gravatar.com/avatar/${hash}`}
+        alt="avatar"
+      />
+    );
   }
 
   render() {
@@ -22,7 +39,7 @@ class Game extends Component {
         Jogo
         <header>
           <span>
-            <img data-testid="header-profile-picture" alt="avatar" />
+            {this.getAvatar()}
             <p data-testid="header-player-name">Jogador: {gamerName}</p>
             <p data-testid="header-score">Pontos: {score}</p>
           </span>
@@ -49,9 +66,10 @@ const mapDispatchToProps = (dispatch) => ({
 Game.propTypes = {
   isFetching: PropTypes.bool.isRequired,
   token: PropTypes.string.isRequired,
-  getScoreGamer: PropTypes.func.isRequired,
   score: PropTypes.number.isRequired,
   gamerName: PropTypes.string.isRequired,
+  gamerEmail: PropTypes.string.isRequired,
+  getQuestions: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Game);
