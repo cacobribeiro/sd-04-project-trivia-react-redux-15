@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import MD5 from 'crypto-js/md5';
-import { changeScore } from '../actions/PlayerAction';
+import { changeScoreAction } from '../actions/PlayerAction';
 import { fetchQuestions } from '../actions/QuestionsAction';
 import Questions from './Question';
 
@@ -59,7 +59,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  getScoreGamer: () => dispatch(changeScore()),
+  getScoreGamer: () => dispatch(changeScoreAction()),
   getQuestions: (token) => dispatch(fetchQuestions(token)),
 });
 
