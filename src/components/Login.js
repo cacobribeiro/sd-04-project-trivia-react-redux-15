@@ -20,20 +20,19 @@ class Login extends Component {
         </button>
       </Link>
     ) : (
-      <button type="button" disabled="disabled" data-testid="btn-play">
-        Jogar
+        <button type="button" disabled="disabled" data-testid="btn-play">
+          Jogar
       </button>
-    );
+      );
   }
 
   render() {
     const { gamerEmail, gamerName, score, assertions } = this.props;
-    const objeto = { name: gamerName, assertions, score: score, gravatarEmail: gamerEmail };
+    const objeto = { name: gamerName, assertions, score, gravatarEmail: gamerEmail };
     localStorage.setItem('player', JSON.stringify(objeto));
     return (
       <div>
-        <label htmlFor="gamerName">
-          Name
+        <label htmlFor="gamerName">Name
           <input
             type="text"
             required="required"
@@ -42,8 +41,7 @@ class Login extends Component {
             onChange={(e) => this.props.changeName(e.target.value)}
           />
         </label>
-        <label htmlFor="gamerEmail">
-          Email
+        <label htmlFor="gamerEmail">Email
           <input
             type="email"
             required="required"
@@ -80,6 +78,8 @@ Login.propTypes = {
   gamerEmail: PropTypes.string.isRequired,
   changeName: PropTypes.func.isRequired,
   changeEmail: PropTypes.func.isRequired,
+  score: PropTypes.number.isRequired,
+  assertions: PropTypes.string.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);
