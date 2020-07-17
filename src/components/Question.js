@@ -19,7 +19,7 @@ class Questions extends React.Component {
     (this.timer = setInterval(() => {
       const { index } = this.state;
       this.setState({ index: index + 1 });
-    }, 1000));
+    }, 30000));
 
   componentDidUpdate() {
     const { index } = this.state;
