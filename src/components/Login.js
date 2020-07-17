@@ -22,7 +22,7 @@ class Login extends Component {
     ) : (
         <button type="button" disabled="disabled" data-testid="btn-play">
           Jogar
-      </button>
+        </button>
       );
   }
 
