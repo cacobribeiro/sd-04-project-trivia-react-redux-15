@@ -11,7 +11,10 @@ const player = (state = INITIAL_STATE, action) => {
   console.log('score funcionando');
   switch (action.type) {
     case CHANGE_SCORE:
-      return { ...state };
+      return {
+        ...state,
+        score: 0,
+      };
     case CHANGE_NAME:
       console.log(action);
       return {

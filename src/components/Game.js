@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { changeScore } from '../actions/PlayerAction';
 import { fetchQuestions } from '../actions/QuestionsAction';
-
+import Questions from './Question';
 
 class Game extends Component {
   componentDidUpdate(prevProps) {
@@ -17,7 +17,6 @@ class Game extends Component {
     const { token, isFetching, score, gamerName } = this.props;
     if (isFetching) return <div>Loading</div>;
     localStorage.setItem('token', token);
-    console.log(`token depois do render: ${token}`);
     return (
       <div>
         Jogo
@@ -28,6 +27,7 @@ class Game extends Component {
             <p data-testid="header-score">Pontos: {score}</p>
           </span>
         </header>
+        <Questions />
       </div>
     );
   }
