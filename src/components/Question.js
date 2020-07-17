@@ -28,8 +28,8 @@ class Questions extends React.Component {
     this.setState({ clockTimer: 30 });
     this.clock = setInterval(() => {
       const { clockTimer } = this.state;
-      this.setState({ clockTimer: clockTimer + 1 });
-    }, 30000);
+      this.setState({ clockTimer: clockTimer - 1 });
+    }, 1000);
   }
 
   timerQuestion() {
@@ -49,7 +49,7 @@ class Questions extends React.Component {
       <div>
         <div>
           <h2 data-testid="question-text">{data[index].question}</h2>
-          {clockTimer}
+          <p>{clockTimer}</p>
           <small data-testid="question-category">{data[index].category}</small>
         </div>
         {questions.map((e, indexWrong) => {
