@@ -22,7 +22,7 @@ class Questions extends React.Component {
     if (index === 4) {
       clearInterval(this.timer, this.clock);
     }
-    if (clockTimer === 0) {
+    if (clockTimer === 0 && index === 4) {
       clearInterval(this.clock);
     }
   }
