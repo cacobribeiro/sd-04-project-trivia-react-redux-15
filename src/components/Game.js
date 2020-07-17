@@ -31,8 +31,12 @@ class Game extends Component {
   }
 
   render() {
-    const { token, isFetching, score, gamerName } = this.props;
+    const { token, isFetching, score, gamerName, assertions } = this.props;
     if (isFetching) return <div>Loading</div>;
+    const receiveLocalStorage = JSON.parse(localStorage.getItem('player'));
+    receiveLocalStorage.score = score;
+    receiveLocalStorage.assertions = assertions;
+    localStorage.setItem('player', JSON.stringify(receiveLocalStorage));
     localStorage.setItem('token', token);
     return (
       <div>
@@ -56,6 +60,7 @@ const mapStateToProps = (state) => ({
   score: state.player.score,
   gamerName: state.player.name,
   gamerEmail: state.player.gravatarEmail,
+  assertions: state.player.assertions,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -70,6 +75,7 @@ Game.propTypes = {
   gamerName: PropTypes.string.isRequired,
   gamerEmail: PropTypes.string.isRequired,
   getQuestions: PropTypes.func.isRequired,
+  assertions: PropTypes.string.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Game);

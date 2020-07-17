@@ -4,14 +4,16 @@ import { connect } from 'react-redux';
 import { changeScoreAction } from '../actions/PlayerAction';
 
 function Questions({ data, QuestionsLoading, score, changeScore }) {
-  function addScore({ score, changeScore, difficulty }) {
-    let scoreDifficulty;
-    let time = 1;
+  function addScore(difficulty) {
+    let scoreDifficulty = 1;
     if (difficulty === 'hard') scoreDifficulty = 3;
     if (difficulty === 'medium') scoreDifficulty = 2;
-    if (difficulty === 'easy') scoreDifficulty = 1;
-    let newScore = score + time * scoreDifficulty;
+    const newScore = score + scoreDifficulty;
     return changeScore(newScore);
+  }
+
+  function handler(difficulty) {
+    addScore(difficulty);
   }
 
   const index = 0;
@@ -27,10 +29,7 @@ function Questions({ data, QuestionsLoading, score, changeScore }) {
         const difficulty = data[index].difficulty;
         if (data[index].correct_answer === e) {
           return (
-            <button
-              data-testid="correct-answer"
-              onClick={() => addScore({ score, changeScore, difficulty })}
-            >
+            <button data-testid="correct-answer" onClick={() => handler(difficulty)}>
               {e}
             </button>
           );
@@ -44,6 +43,8 @@ function Questions({ data, QuestionsLoading, score, changeScore }) {
 Questions.propTypes = {
   QuestionsLoading: PropTypes.bool.isRequired,
   data: PropTypes.string.isRequired,
+  changeScore: PropTypes.func.isRequired,
+  score: PropTypes.number.isRequired,
 };
 
 const mapStateToProps = (state) => ({

@@ -27,7 +27,9 @@ class Login extends Component {
   }
 
   render() {
-    const { gamerEmail, gamerName } = this.props;
+    const { gamerEmail, gamerName, score, assertions } = this.props;
+    const objeto = { name: gamerName, assertions, score: score, gravatarEmail: gamerEmail };
+    localStorage.setItem('player', JSON.stringify(objeto));
     return (
       <div>
         <label htmlFor="gamerName">
@@ -62,6 +64,8 @@ class Login extends Component {
 const mapStateToProps = (state) => ({
   gamerName: state.player.name,
   gamerEmail: state.player.gravatarEmail,
+  score: state.player.score,
+  assertions: state.player.assertions,
 });
 
 const mapDispatchToProps = (dispatch) => ({
