@@ -8,21 +8,30 @@ class Questions extends React.Component {
     this.state = {
       index: 0,
     };
-    this.timeOut = this.timeOut.bind(this);
+    this.time = this.time.bind(this);
   }
 
-  timeOut() {
-    const { index } = this.state;
-    setInterval(() => {
+  componentDidMount() {
+    this.time();
+  }
+
+  time = () =>
+    (this.timer = setInterval(() => {
+      const { index } = this.state;
       this.setState({ index: index + 1 });
-    }, 1000);
-    if (index === 4) return clearInterval(this.timeOut());
+    }, 1000));
+
+  componentDidUpdate() {
+    const { index } = this.state;
+    if (index === 4) {
+      clearInterval(this.timer);
+    }
   }
 
   render() {
     const { data, QuestionsLoading } = this.props;
     const { index } = this.state;
-    this.timeOut();
+    console.log(index);
     if (QuestionsLoading) return <p>L O A D I N G . . . </p>;
     const questions = [...data[index].incorrect_answers, data[index].correct_answer].sort();
     return (
