@@ -7,7 +7,7 @@ import { timeAction } from '../actions/TimeAction';
 function ButtonNext({ changeTime, index, changeIndex, findQuestionsFalse }) {
   function nextQuestions() {
     changeIndex(index + 1);
-    changeTime(10);
+    changeTime(30);
     findQuestionsFalse();
   }
   return (

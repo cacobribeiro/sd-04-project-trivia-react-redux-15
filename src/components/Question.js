@@ -24,7 +24,7 @@ class Questions extends React.Component {
     if (time === 0) {
       clearInterval(this.clock);
     }
-    if (time === 10) {
+    if (time === 30) {
       this.clockQuestion();
     }
   }
