@@ -1,7 +1,7 @@
 const { CHANGE_TIME } = require('../actions/TimeAction');
 
 const INITIAL_STATE = {
-  time: 10,
+  time: 30,
 };
 
 const ChangeTime = (state = INITIAL_STATE, action) => {
