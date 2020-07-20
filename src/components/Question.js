@@ -2,35 +2,35 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 import { changeScoreAction } from '../actions/PlayerAction';
+import ButtonNext from './ButtonNext';
+import { findQuestionsTrueAction } from '../actions/FindQuestions';
+import { timeAction } from '../actions/TimeAction';
 
 class Questions extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      clockTimer: 30,
-      index: 0,
-    };
     this.handleButton = this.handleButton.bind(this);
     this.addScore = this.addScore.bind(this);
     this.selectAnswer = this.selectAnswer.bind(this);
+    this.btNext = this.btNext.bind(this);
   }
 
-  componentDidMount() {
-    this.clockQuestion();
-  }
+  // componentDidMount() {
+  //   this.clockQuestion();
+  // }
 
   componentDidUpdate() {
-    const { index, clockTimer } = this.state;
-    if (clockTimer === 1 {
+    const { time } = this.props;
+    if (time === 0) {
       clearInterval(this.clock);
+    }
+    if (time === 10) {
+      this.clockQuestion();
     }
   }
 
   selectAnswer(answer) {
-    console.log('Escolhi a alternativa:');
-    console.log(answer);
     const alternatives = document.querySelector('.question-answers').childNodes;
-    console.log(alternatives);
     // disabled outras alternativas
     for (let index = 0; index < alternatives.length; index += 1) {
       if (alternatives[index].innerText !== answer) {
@@ -63,22 +63,27 @@ class Questions extends React.Component {
   }
 
   clockQuestion() {
-    this.setState({ clockTimer: 30 });
     this.clock = setInterval(() => {
-      const { clockTimer } = this.state;
-      this.setState({ clockTimer: clockTimer - 1 });
+      const { time, changeTime } = this.props;
+      changeTime(time - 1);
     }, 1000);
   }
 
+  btNext() {
+    const { time } = this.props;
+    if (time === 0) {
+      return <ButtonNext setinterval={this.clockQuestion} />;
+    }
+  }
+
   render() {
-    const { data, QuestionsLoading } = this.props;
-    const { index, clockTimer } = this.state;
+    const { data, QuestionsLoading, time, index } = this.props;
     if (QuestionsLoading) return <p>L O A D I N G . . . </p>;
     const questions = [...data[index].incorrect_answers, data[index].correct_answer].sort();
     return (
       <div>
         <div>
-          <p> Remaining: {clockTimer}</p>
+          <p> Remaining: {time}</p>
           <h2 data-testid="question-text">{data[index].question}</h2>
           <small data-testid="question-category">{data[index].category}</small>
         </div>
@@ -106,6 +111,7 @@ class Questions extends React.Component {
             );
           })}
         </div>
+        {this.btNext()}
       </div>
     );
   }
@@ -122,10 +128,14 @@ const mapStateToProps = (state) => ({
   data: state.questionApi.data,
   QuestionsLoading: state.questionApi.QuestionsLoading,
   score: state.player.score,
+  time: state.ChangeTime.time,
+  index: state.index.index,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   changeScore: (obj) => dispatch(changeScoreAction(obj)),
+  showButton: () => dispatch(findQuestionsTrueAction()),
+  changeTime: (time) => dispatch(timeAction(time)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Questions);
