@@ -3,6 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { changeScoreAction } from '../actions/PlayerAction'; 
 
+
 class Questions extends React.Component {
   constructor(props) {
     super(props);
@@ -10,8 +11,10 @@ class Questions extends React.Component {
       clockTimer: 30,
       index: 0,
     };
+    this.handleButton = this.handleButton.bind(this);
     this.timerQuestion = this.timerQuestion.bind(this);
     this.addScore = this.addScore.bind(this);
+    this.selectAnswer = this.selectAnswer.bind(this);
   }
 
   componentDidMount() {
@@ -29,16 +32,38 @@ class Questions extends React.Component {
     }
   }
   
+  selectAnswer(answer) {
+    console.log('Escolhi a alternativa:');
+    console.log(answer);
+    const alternatives = document.querySelector('.question-answers').childNodes;
+    console.log(alternatives);
+    // disabled outras alternativas
+    for (let index = 0; index < alternatives.length; index += 1) {
+      if (alternatives[index].innerText !== answer) {
+        alternatives[index].disabled = true;
+      }
+    }
+    // mudando o border
+    for (let index = 0; index < alternatives.length; index += 1) {
+      if (alternatives[index].id === 'correct-answer') {
+        alternatives[index].style.border = '3px solid rgb(6, 240, 15';
+      } else {
+        alternatives[index].style.border = '3px solid rgb(255, 0, 0)';
+      }
+    }
+  }
+  
+  handleButton(answer, difficulty) {
+    selectAnswer(answer);
+    addScore(difficulty);
+  }
+  
    addScore(difficulty) {
     let scoreDifficulty = 1;
     if (difficulty === 'hard') scoreDifficulty = 3;
     if (difficulty === 'medium') scoreDifficulty = 2;
     const newScore = score + scoreDifficulty;
     return changeScore(newScore);
-  }
-
-  function handler(difficulty) {
-    addScore(difficulty);
   }
 
   clockQuestion() {
@@ -71,9 +96,9 @@ class Questions extends React.Component {
         {questions.map((e, indexWrong) => {
         const difficulty = data[index].difficulty;   
       if (data[index].correct_answer === e) {
-            return <button data-testid="correct-answer" onClick={() => handler(difficulty)}>{e}</button>;
+            return <button data-testid="correct-answer" onClick={() => handleButton(e ,difficulty)}>{e}</button>;
           }
-          return <button data-testid={`wrong-answer-${indexWrong}`}>{e}</button>;
+          return <button data-testid={`wrong-answer-${indexWrong}`} onClick={() => selectAnswer(e)}>{e}</button>;
         })}
       </div>
 }
