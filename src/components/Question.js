@@ -15,10 +15,6 @@ class Questions extends React.Component {
     this.btNext = this.btNext.bind(this);
   }
 
-  // componentDidMount() {
-  //   this.clockQuestion();
-  // }
-
   componentDidUpdate() {
     const { time } = this.props;
     if (time === 0) {
@@ -121,7 +117,7 @@ class Questions extends React.Component {
 Questions.propTypes = {
   QuestionsLoading: PropTypes.bool.isRequired,
   changeScore: PropTypes.func.isRequired,
-  changeTime: PropTypes.func,
+  changeTime: PropTypes.func.isRequired,
   data: PropTypes.string.isRequired,
   index: PropTypes.number.isRequired,
   score: PropTypes.number.isRequired,
