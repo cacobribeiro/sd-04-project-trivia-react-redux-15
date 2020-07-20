@@ -8,7 +8,6 @@ const INITIAL_STATE = {
 };
 
 const player = (state = INITIAL_STATE, action) => {
-  console.log('score funcionando');
   switch (action.type) {
     case CHANGE_SCORE:
       return {

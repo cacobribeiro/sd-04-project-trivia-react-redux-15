@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import MD5 from 'crypto-js/md5';
 import { changeScore } from '../actions/PlayerAction';
 import { fetchQuestions } from '../actions/QuestionsAction';
+import { gravatarImageAction } from '../actions/GravatarImage';
 import Questions from './Question';
 
 class Game extends Component {
@@ -19,12 +20,13 @@ class Game extends Component {
   }
 
   getAvatar() {
-    const { gamerEmail } = this.props;
+    const { gamerEmail, getImage, gravatarImage } = this.props;
     const hash = MD5(gamerEmail.trim().toLowerCase());
+    getImage(`https://www.gravatar.com/avatar/${hash}`);
     return (
       <img
         data-testid="header-profile-picture"
-        src={`https://www.gravatar.com/avatar/${hash}`}
+        src={gravatarImage}
         alt="avatar"
       />
     );
@@ -56,11 +58,13 @@ const mapStateToProps = (state) => ({
   score: state.player.score,
   gamerName: state.player.name,
   gamerEmail: state.player.gravatarEmail,
+  gravatarImage: state.ImageReducer.gravatarImage,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   getScoreGamer: () => dispatch(changeScore()),
   getQuestions: (token) => dispatch(fetchQuestions(token)),
+  getImage: (img) => dispatch(gravatarImageAction(img)),
 });
 
 Game.propTypes = {
@@ -70,6 +74,7 @@ Game.propTypes = {
   gamerName: PropTypes.string.isRequired,
   gamerEmail: PropTypes.string.isRequired,
   getQuestions: PropTypes.func.isRequired,
+  getImage: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Game);
