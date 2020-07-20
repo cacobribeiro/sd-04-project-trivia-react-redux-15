@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import MD5 from 'crypto-js/md5';
-import { changeScore } from '../actions/PlayerAction';
+import { changeScoreAction } from '../actions/PlayerAction';
 import { fetchQuestions } from '../actions/QuestionsAction';
 import Questions from './Question';
 
@@ -31,8 +31,12 @@ class Game extends Component {
   }
 
   render() {
-    const { token, isFetching, score, gamerName } = this.props;
+    const { token, isFetching, score, gamerName, assertions } = this.props;
     if (isFetching) return <div>Loading</div>;
+    const receiveLocalStorage = JSON.parse(localStorage.getItem('player'));
+    receiveLocalStorage.score = score;
+    receiveLocalStorage.assertions = assertions;
+    localStorage.setItem('player', JSON.stringify(receiveLocalStorage));
     localStorage.setItem('token', token);
     return (
       <div>
@@ -56,10 +60,11 @@ const mapStateToProps = (state) => ({
   score: state.player.score,
   gamerName: state.player.name,
   gamerEmail: state.player.gravatarEmail,
+  assertions: state.player.assertions,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  getScoreGamer: () => dispatch(changeScore()),
+  getScoreGamer: () => dispatch(changeScoreAction()),
   getQuestions: (token) => dispatch(fetchQuestions(token)),
 });
 
@@ -70,6 +75,7 @@ Game.propTypes = {
   gamerName: PropTypes.string.isRequired,
   gamerEmail: PropTypes.string.isRequired,
   getQuestions: PropTypes.func.isRequired,
+  assertions: PropTypes.string.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Game);
