@@ -5,6 +5,7 @@ import { changeScoreAction } from '../actions/PlayerAction';
 import ButtonNext from './ButtonNext';
 import { findQuestionsTrueAction } from '../actions/FindQuestions';
 import { timeAction } from '../actions/TimeAction';
+import { disabledBtn, enableBtn } from '../services/DisabledButtons';
 
 class Questions extends React.Component {
   constructor(props) {
@@ -18,9 +19,11 @@ class Questions extends React.Component {
   componentDidUpdate() {
     const { time } = this.props;
     if (time === 0) {
+      disabledBtn();
       clearInterval(this.clock);
     }
     if (time === 30) {
+      enableBtn();
       this.clockQuestion();
     }
   }
@@ -91,6 +94,7 @@ class Questions extends React.Component {
               return (
                 <button
                   data-testid="correct-answer"
+                  className="btn-answer"
                   id="correct-answer"
                   onClick={() => this.handleButton(e, difficulty)}
                 >
@@ -101,6 +105,7 @@ class Questions extends React.Component {
             return (
               <button
                 data-testid={`wrong-answer-${indexWrong}`}
+                className="btn-answer"
                 onClick={() => this.selectAnswer(e)}
               >
                 {e}
