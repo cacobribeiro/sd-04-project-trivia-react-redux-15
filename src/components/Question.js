@@ -1,8 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
-import { changeScoreAction } from '../actions/PlayerAction'; 
-
+import { changeScoreAction } from '../actions/PlayerAction';
 
 class Questions extends React.Component {
   constructor(props) {
@@ -12,13 +11,11 @@ class Questions extends React.Component {
       index: 0,
     };
     this.handleButton = this.handleButton.bind(this);
-    this.timerQuestion = this.timerQuestion.bind(this);
     this.addScore = this.addScore.bind(this);
     this.selectAnswer = this.selectAnswer.bind(this);
   }
 
   componentDidMount() {
-    this.timerQuestion();
     this.clockQuestion();
   }
 
@@ -31,7 +28,7 @@ class Questions extends React.Component {
       clearInterval(this.clock);
     }
   }
-  
+
   selectAnswer(answer) {
     console.log('Escolhi a alternativa:');
     console.log(answer);
@@ -46,23 +43,25 @@ class Questions extends React.Component {
     // mudando o border
     for (let index = 0; index < alternatives.length; index += 1) {
       if (alternatives[index].id === 'correct-answer') {
-        alternatives[index].style.border = '3px solid rgb(6, 240, 15';
+        alternatives[index].style.border = '3px solid rgb(6, 240, 15)';
       } else {
         alternatives[index].style.border = '3px solid rgb(255, 0, 0)';
       }
     }
   }
-  
+
   handleButton(answer, difficulty) {
-    selectAnswer(answer);
-    addScore(difficulty);
+    this.selectAnswer(answer);
+    this.addScore(difficulty);
   }
-  
-   addScore(difficulty) {
+
+  addScore(difficulty) {
+    const { score, changeScore } = this.props;
+    const { clockTimer } = this.state;
     let scoreDifficulty = 1;
     if (difficulty === 'hard') scoreDifficulty = 3;
     if (difficulty === 'medium') scoreDifficulty = 2;
-    const newScore = score + scoreDifficulty;
+    const newScore = score + scoreDifficulty * clockTimer;
     return changeScore(newScore);
   }
 
@@ -74,15 +73,8 @@ class Questions extends React.Component {
     }, 1000);
   }
 
-  timerQuestion() {
-    this.timer = setInterval(() => {
-      const { index } = this.state;
-      this.setState({ index: index + 1, clockTimer: 30 });
-    }, 30000);
-  }
-
   render() {
-    const { data, QuestionsLoading,  score, changeScore } = this.props;
+    const { data, QuestionsLoading } = this.props;
     const { index, clockTimer } = this.state;
     if (QuestionsLoading) return <p>L O A D I N G . . . </p>;
     const questions = [...data[index].incorrect_answers, data[index].correct_answer].sort();
@@ -93,14 +85,33 @@ class Questions extends React.Component {
           <h2 data-testid="question-text">{data[index].question}</h2>
           <small data-testid="question-category">{data[index].category}</small>
         </div>
-        {questions.map((e, indexWrong) => {
-        const difficulty = data[index].difficulty;   
-      if (data[index].correct_answer === e) {
-            return <button data-testid="correct-answer" onClick={() => handleButton(e ,difficulty)}>{e}</button>;
-          }
-          return <button data-testid={`wrong-answer-${indexWrong}`} onClick={() => selectAnswer(e)}>{e}</button>;
-        })}
+        <div className="question-answers">
+          {questions.map((e, indexWrong) => {
+            const difficulty = data[index].difficulty;
+            if (data[index].correct_answer === e) {
+              return (
+                <button
+                  data-testid="correct-answer"
+                  id="correct-answer"
+                  onClick={() => this.handleButton(e, difficulty)}
+                >
+                  {e}
+                </button>
+              );
+            }
+            return (
+              <button
+                data-testid={`wrong-answer-${indexWrong}`}
+                onClick={() => this.selectAnswer(e)}
+              >
+                {e}
+              </button>
+            );
+          })}
+        </div>
       </div>
+    );
+  }
 }
 
 Questions.propTypes = {
