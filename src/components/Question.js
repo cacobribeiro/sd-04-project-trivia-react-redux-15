@@ -30,6 +30,7 @@ class Questions extends React.Component {
 
   selectAnswer(answer) {
     const alternatives = document.querySelector('.question-answers').childNodes;
+    this.btNext('1');
     // disabled outras alternativas
     for (let index = 0; index < alternatives.length; index += 1) {
       if (alternatives[index].innerText !== answer) {
