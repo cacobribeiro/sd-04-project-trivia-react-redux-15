@@ -1,10 +1,7 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
-import {
-  findQuestionsTrueAction,
-  findQuestionsFalseAction,
-  indexAction,
-} from '../actions/FindQuestions';
+import { findQuestionsFalseAction, indexAction } from '../actions/FindQuestions';
 import { timeAction } from '../actions/TimeAction';
 
 function ButtonNext({ changeTime, index, changeIndex, findQuestionsFalse }) {
@@ -21,6 +18,13 @@ function ButtonNext({ changeTime, index, changeIndex, findQuestionsFalse }) {
     </div>
   );
 }
+
+ButtonNext.propTypes = {
+  changeIndex: PropTypes.func.isRequired,
+  changeTime: PropTypes.func.isRequired,
+  findQuestionsFalse: PropTypes.func.isRequired,
+  index: PropTypes.number.isRequired,
+};
 
 const mapStateToProps = (state) => ({
   findQuestions: state.FindQuestions.findQuestions,

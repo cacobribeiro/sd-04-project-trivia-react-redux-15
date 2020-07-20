@@ -74,6 +74,7 @@ class Questions extends React.Component {
     if (time === 0) {
       return <ButtonNext setinterval={this.clockQuestion} />;
     }
+    return null;
   }
 
   render() {
@@ -119,9 +120,12 @@ class Questions extends React.Component {
 
 Questions.propTypes = {
   QuestionsLoading: PropTypes.bool.isRequired,
-  data: PropTypes.string.isRequired,
   changeScore: PropTypes.func.isRequired,
+  changeTime: PropTypes.func,
+  data: PropTypes.string.isRequired,
+  index: PropTypes.number.isRequired,
   score: PropTypes.number.isRequired,
+  time: PropTypes.number.isRequired,
 };
 
 const mapStateToProps = (state) => ({
