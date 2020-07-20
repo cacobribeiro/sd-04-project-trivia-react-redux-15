@@ -75,6 +75,7 @@ Game.propTypes = {
   gamerEmail: PropTypes.string.isRequired,
   getQuestions: PropTypes.func.isRequired,
   getImage: PropTypes.func.isRequired,
+  gravatarImage: PropTypes.string.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Game);
