@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
+import { changeScoreAction } from '../actions/PlayerAction'; 
 
 class Questions extends React.Component {
   constructor(props) {
@@ -10,6 +11,7 @@ class Questions extends React.Component {
       index: 0,
     };
     this.timerQuestion = this.timerQuestion.bind(this);
+    this.addScore = this.addScore.bind(this);
   }
 
   componentDidMount() {
@@ -25,6 +27,18 @@ class Questions extends React.Component {
     if (clockTimer === 0 && index === 4) {
       clearInterval(this.clock);
     }
+  }
+  
+   addScore(difficulty) {
+    let scoreDifficulty = 1;
+    if (difficulty === 'hard') scoreDifficulty = 3;
+    if (difficulty === 'medium') scoreDifficulty = 2;
+    const newScore = score + scoreDifficulty;
+    return changeScore(newScore);
+  }
+
+  function handler(difficulty) {
+    addScore(difficulty);
   }
 
   clockQuestion() {
@@ -43,7 +57,7 @@ class Questions extends React.Component {
   }
 
   render() {
-    const { data, QuestionsLoading } = this.props;
+    const { data, QuestionsLoading,  score, changeScore } = this.props;
     const { index, clockTimer } = this.state;
     if (QuestionsLoading) return <p>L O A D I N G . . . </p>;
     const questions = [...data[index].incorrect_answers, data[index].correct_answer].sort();
@@ -55,24 +69,30 @@ class Questions extends React.Component {
           <small data-testid="question-category">{data[index].category}</small>
         </div>
         {questions.map((e, indexWrong) => {
-          if (data[index].correct_answer === e) {
-            return <button data-testid="correct-answer">{e}</button>;
+        const difficulty = data[index].difficulty;   
+      if (data[index].correct_answer === e) {
+            return <button data-testid="correct-answer" onClick={() => handler(difficulty)}>{e}</button>;
           }
           return <button data-testid={`wrong-answer-${indexWrong}`}>{e}</button>;
         })}
       </div>
-    );
-  }
 }
 
 Questions.propTypes = {
   QuestionsLoading: PropTypes.bool.isRequired,
   data: PropTypes.string.isRequired,
+  changeScore: PropTypes.func.isRequired,
+  score: PropTypes.number.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   data: state.questionApi.data,
   QuestionsLoading: state.questionApi.QuestionsLoading,
+  score: state.player.score,
 });
 
-export default connect(mapStateToProps)(Questions);
+const mapDispatchToProps = (dispatch) => ({
+  changeScore: (obj) => dispatch(changeScoreAction(obj)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Questions);
