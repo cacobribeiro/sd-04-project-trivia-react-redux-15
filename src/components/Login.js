@@ -19,16 +19,17 @@ class Login extends Component {
           Jogar
         </button>
       </Link>
-    ) : (<button type="button" disabled="disabled" data-testid="btn-play">
-      Jogar
-        </button>
-      );
+    ) : (
+      <button type="button" disabled="disabled" data-testid="btn-play">
+        Jogar
+      </button>
+    );
   }
 
   render() {
     const { gamerEmail, gamerName, score, assertions } = this.props;
-    const objeto = { name: gamerName, assertions, score, gravatarEmail: gamerEmail };
-    localStorage.setItem('player', JSON.stringify(objeto));
+    const objeto = { player: { name: gamerName, assertions, score, gravatarEmail: gamerEmail } };
+    localStorage.setItem('state', JSON.stringify(objeto));
     return (
       <div>
         <label htmlFor="gamerName">Name
@@ -40,7 +41,8 @@ class Login extends Component {
             onChange={(e) => this.props.changeName(e.target.value)}
           />
         </label>
-        <label htmlFor="gamerEmail">Email
+        <label htmlFor="gamerEmail">
+          Email
           <input
             type="email"
             required="required"

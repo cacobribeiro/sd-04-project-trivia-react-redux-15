@@ -1,39 +1,39 @@
 import PropTypes from 'prop-types';
+import { Redirect } from 'react-router-dom';
 import React from 'react';
 import { connect } from 'react-redux';
 import { changeScoreAction } from '../actions/PlayerAction';
+import ButtonNext from './ButtonNext';
+import { findQuestionsTrueAction } from '../actions/FindQuestions';
+import { timeAction } from '../actions/TimeAction';
+import { disabledBtn, enableBtn } from '../services/DisabledButtons';
 
 class Questions extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      clockTimer: 30,
-      index: 0,
-    };
     this.handleButton = this.handleButton.bind(this);
     this.addScore = this.addScore.bind(this);
     this.selectAnswer = this.selectAnswer.bind(this);
-  }
-
-  componentDidMount() {
-    this.clockQuestion();
+    this.btNext = this.btNext.bind(this);
   }
 
   componentDidUpdate() {
-    const { index, clockTimer } = this.state;
-    if (index === 4) {
-      clearInterval(this.timer, this.clock);
-    }
-    if (clockTimer === 0 && index === 4) {
+    const { time, showButton } = this.props;
+    if (time === 0) {
+      disabledBtn();
+      showButton();
       clearInterval(this.clock);
+    }
+    if (time === 30) {
+      enableBtn();
+      this.clockQuestion();
     }
   }
 
   selectAnswer(answer) {
-    console.log('Escolhi a alternativa:');
-    console.log(answer);
+    const { showButton } = this.props;
+    showButton();
     const alternatives = document.querySelector('.question-answers').childNodes;
-    console.log(alternatives);
     // disabled outras alternativas
     for (let index = 0; index < alternatives.length; index += 1) {
       if (alternatives[index].innerText !== answer) {
@@ -56,32 +56,39 @@ class Questions extends React.Component {
   }
 
   addScore(difficulty) {
-    const { score, changeScore } = this.props;
-    const { clockTimer } = this.state;
+    const { score, changeScore, time } = this.props;
     let scoreDifficulty = 1;
     if (difficulty === 'hard') scoreDifficulty = 3;
     if (difficulty === 'medium') scoreDifficulty = 2;
-    const newScore = score + scoreDifficulty * clockTimer;
+    const newScore = score + scoreDifficulty * time;
     return changeScore(newScore);
   }
 
   clockQuestion() {
-    this.setState({ clockTimer: 30 });
     this.clock = setInterval(() => {
-      const { clockTimer } = this.state;
-      this.setState({ clockTimer: clockTimer - 1 });
+      const { time, changeTime } = this.props;
+      changeTime(time - 1);
     }, 1000);
   }
 
+  btNext() {
+    const { findQuestions } = this.props;
+    if (findQuestions === true) {
+      clearInterval(this.clock);
+      return <ButtonNext setinterval={this.clockQuestion} />;
+    }
+    return null;
+  }
+
   render() {
-    const { data, QuestionsLoading } = this.props;
-    const { index, clockTimer } = this.state;
+    const { data, QuestionsLoading, time, index } = this.props;
     if (QuestionsLoading) return <p>L O A D I N G . . . </p>;
+    if (index > 4) return <Redirect to="/" />;
     const questions = [...data[index].incorrect_answers, data[index].correct_answer].sort();
     return (
       <div>
         <div>
-          <p> Remaining: {clockTimer}</p>
+          <p> Remaining: {time}</p>
           <h2 data-testid="question-text">{data[index].question}</h2>
           <small data-testid="question-category">{data[index].category}</small>
         </div>
@@ -92,6 +99,7 @@ class Questions extends React.Component {
               return (
                 <button
                   data-testid="correct-answer"
+                  className="btn-answer"
                   id="correct-answer"
                   onClick={() => this.handleButton(e, difficulty)}
                 >
@@ -102,6 +110,7 @@ class Questions extends React.Component {
             return (
               <button
                 data-testid={`wrong-answer-${indexWrong}`}
+                className="btn-answer"
                 onClick={() => this.selectAnswer(e)}
               >
                 {e}
@@ -109,6 +118,7 @@ class Questions extends React.Component {
             );
           })}
         </div>
+        {this.btNext()}
       </div>
     );
   }
@@ -116,19 +126,29 @@ class Questions extends React.Component {
 
 Questions.propTypes = {
   QuestionsLoading: PropTypes.bool.isRequired,
-  data: PropTypes.string.isRequired,
   changeScore: PropTypes.func.isRequired,
+  changeTime: PropTypes.func.isRequired,
+  data: PropTypes.string.isRequired,
+  findQuestions: PropTypes.bool.isRequired,
+  index: PropTypes.number.isRequired,
   score: PropTypes.number.isRequired,
+  showButton: PropTypes.func.isRequired,
+  time: PropTypes.number.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   data: state.questionApi.data,
   QuestionsLoading: state.questionApi.QuestionsLoading,
   score: state.player.score,
+  time: state.ChangeTime.time,
+  index: state.index.index,
+  findQuestions: state.FindQuestions.findQuestions,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   changeScore: (obj) => dispatch(changeScoreAction(obj)),
+  showButton: () => dispatch(findQuestionsTrueAction()),
+  changeTime: (time) => dispatch(timeAction(time)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Questions);
