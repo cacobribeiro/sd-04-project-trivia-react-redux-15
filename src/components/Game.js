@@ -6,7 +6,7 @@ import { changeScoreAction } from '../actions/PlayerAction';
 import { fetchQuestions } from '../actions/QuestionsAction';
 import { gravatarImageAction } from '../actions/GravatarImage';
 import Questions from './Question';
-
+// ASD
 class Game extends Component {
   constructor(props) {
     super(props);
@@ -35,10 +35,10 @@ class Game extends Component {
   render() {
     const { token, isFetching, score, gamerName, assertions } = this.props;
     if (isFetching) return <div>Loading</div>;
-    const receiveLocalStorage = JSON.parse(localStorage.getItem('player'));
-    receiveLocalStorage.score = score;
-    receiveLocalStorage.assertions = assertions;
-    localStorage.setItem('player', JSON.stringify(receiveLocalStorage));
+    const receiveLocalStorage = JSON.parse(localStorage.getItem('state'));
+    receiveLocalStorage.player.score = score;
+    receiveLocalStorage.player.assertions = assertions;
+    localStorage.setItem('state', JSON.stringify(receiveLocalStorage));
     localStorage.setItem('token', token);
     return (
       <div>
