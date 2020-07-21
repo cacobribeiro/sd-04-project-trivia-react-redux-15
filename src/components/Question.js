@@ -17,9 +17,10 @@ class Questions extends React.Component {
   }
 
   componentDidUpdate() {
-    const { time } = this.props;
+    const { time, showButton } = this.props;
     if (time === 0) {
       disabledBtn();
+      showButton();
       clearInterval(this.clock);
     }
     if (time === 30) {
@@ -29,8 +30,8 @@ class Questions extends React.Component {
   }
 
   selectAnswer(answer) {
-    const { changeTime } = this.props;
-    changeTime(0);
+    const { showButton } = this.props;
+    showButton();
     const alternatives = document.querySelector('.question-answers').childNodes;
     // disabled outras alternativas
     for (let index = 0; index < alternatives.length; index += 1) {
@@ -70,8 +71,9 @@ class Questions extends React.Component {
   }
 
   btNext() {
-    const { time } = this.props;
-    if (time === 0) {
+    const { findQuestions } = this.props;
+    if (findQuestions === true) {
+      clearInterval(this.clock);
       return <ButtonNext setinterval={this.clockQuestion} />;
     }
     return null;
@@ -128,6 +130,7 @@ Questions.propTypes = {
   index: PropTypes.number.isRequired,
   score: PropTypes.number.isRequired,
   time: PropTypes.number.isRequired,
+  findQuestions: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -136,6 +139,7 @@ const mapStateToProps = (state) => ({
   score: state.player.score,
   time: state.ChangeTime.time,
   index: state.index.index,
+  findQuestions: state.FindQuestions.findQuestions,
 });
 
 const mapDispatchToProps = (dispatch) => ({
