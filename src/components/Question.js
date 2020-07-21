@@ -127,10 +127,11 @@ Questions.propTypes = {
   changeScore: PropTypes.func.isRequired,
   changeTime: PropTypes.func.isRequired,
   data: PropTypes.string.isRequired,
+  findQuestions: PropTypes.bool.isRequired,
   index: PropTypes.number.isRequired,
   score: PropTypes.number.isRequired,
+  showButton: PropTypes.func.isRequired,
   time: PropTypes.number.isRequired,
-  findQuestions: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => ({
