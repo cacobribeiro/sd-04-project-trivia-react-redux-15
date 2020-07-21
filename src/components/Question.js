@@ -54,12 +54,11 @@ class Questions extends React.Component {
   }
 
   addScore(difficulty) {
-    const { score, changeScore } = this.props;
-    const { clockTimer } = this.state;
+    const { score, changeScore, time } = this.props;
     let scoreDifficulty = 1;
     if (difficulty === 'hard') scoreDifficulty = 3;
     if (difficulty === 'medium') scoreDifficulty = 2;
-    const newScore = score + scoreDifficulty * clockTimer;
+    const newScore = score + scoreDifficulty * time;
     return changeScore(newScore);
   }
 
