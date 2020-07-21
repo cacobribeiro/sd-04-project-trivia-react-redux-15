@@ -11,7 +11,7 @@ class Feedback extends Component {
 
   feedbackMessage() {
     const { assertions } = this.props;
-    if (assertions > 3) {
+    if (assertions < 3) {
       return 'Podia ser melhor...';
     }
     return 'Mandou bem!';
