@@ -5,6 +5,7 @@ import './App.css';
 import Login from './components/Login';
 import Settings from './components/Settings';
 import Game from './components/Game';
+import Feedback from './components/Feedback';
 
 export default function App() {
   return (
@@ -13,6 +14,7 @@ export default function App() {
         <div className="App">
           <header className="App-header">
             <img src={logo} className="App-logo" alt="logo" />
+            <Route exact path="/feedback" component={Feedback} />
             <Route exact path="/game-screen" component={Game} />
             <Route exact path="/settings" component={Settings} />
             <Route exact path="/" component={Login} />
