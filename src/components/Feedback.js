@@ -2,11 +2,14 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { indexAction } from '../actions/FindQuestions';
+import { resetAction } from '../actions/PlayerAction';
 
 class Feedback extends Component {
   constructor(props) {
     super(props);
     this.feedbackMessage = this.feedbackMessage.bind(this);
+    this.handleButton = this.handleButton.bind(this);
   }
 
   componentDidMount() {
@@ -29,6 +32,12 @@ class Feedback extends Component {
     return 'Mandou bem!';
   }
 
+  handleButton() {
+    const {resetIndex, resetPlayer} = this.props;
+    resetIndex(0);
+    resetPlayer();
+  }
+
   render() {
     const { gravatarImage, gamerName, score, assertions } = this.props;
     return (
@@ -40,7 +49,7 @@ class Feedback extends Component {
         <h2 data-testid="feedback-total-score">Placar final: {score}</h2>
         <h2 data-testid="feedback-total-question">Total de perguntar respondidas: {assertions}</h2>
         <Link to="/">
-          <button data-testid="btn-play-again" type="submit">
+          <button data-testid="btn-play-again" type="submit" onClick={() => this.handleButton()}>
             Jogar novamente
           </button>
         </Link>
@@ -61,6 +70,11 @@ const mapStateToProps = (state) => ({
   gravatarImage: state.ImageReducer.gravatarImage,
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  resetIndex: (num) => dispatch(indexAction(num)),
+  resetPlayer: () => dispatch(resetAction()),
+});
+
 Feedback.propTypes = {
   score: PropTypes.number.isRequired,
   gamerName: PropTypes.string.isRequired,
@@ -68,4 +82,4 @@ Feedback.propTypes = {
   gravatarImage: PropTypes.string.isRequired,
 };
 
-export default connect(mapStateToProps)(Feedback);
+export default connect(mapStateToProps, mapDispatchToProps)(Feedback);
