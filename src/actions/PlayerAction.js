@@ -1,6 +1,7 @@
 export const CHANGE_SCORE = 'CHANGE_SCORE';
 export const CHANGE_NAME = 'CHANGE_NAME';
 export const CHANGE_EMAIL = 'CHANGE_EMAIL';
+export const RESET = 'RESET';
 
 const changeScoreAction = (changeScore) => ({
   type: CHANGE_SCORE,
@@ -17,4 +18,8 @@ const changeEmailAction = (changeEmail) => ({
   changeEmail,
 });
 
-export { changeScoreAction, changeNameAction, changeEmailAction };
+const resetAction = () => ({
+  type: RESET,
+});
+
+export { changeScoreAction, changeNameAction, changeEmailAction, resetAction };
