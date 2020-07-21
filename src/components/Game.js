@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import MD5 from 'crypto-js/md5';
-import { changeScore } from '../actions/PlayerAction';
+import { changeScoreAction } from '../actions/PlayerAction';
 import { fetchQuestions } from '../actions/QuestionsAction';
 import { gravatarImageAction } from '../actions/GravatarImage';
 import Questions from './Question';
@@ -33,8 +33,12 @@ class Game extends Component {
   }
 
   render() {
-    const { token, isFetching, score, gamerName } = this.props;
+    const { token, isFetching, score, gamerName, assertions } = this.props;
     if (isFetching) return <div>Loading</div>;
+    const receiveLocalStorage = JSON.parse(localStorage.getItem('player'));
+    receiveLocalStorage.score = score;
+    receiveLocalStorage.assertions = assertions;
+    localStorage.setItem('player', JSON.stringify(receiveLocalStorage));
     localStorage.setItem('token', token);
     return (
       <div>
@@ -59,10 +63,11 @@ const mapStateToProps = (state) => ({
   gamerName: state.player.name,
   gamerEmail: state.player.gravatarEmail,
   gravatarImage: state.ImageReducer.gravatarImage,
+  assertions: state.player.assertions,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  getScoreGamer: () => dispatch(changeScore()),
+  getScoreGamer: () => dispatch(changeScoreAction()),
   getQuestions: (token) => dispatch(fetchQuestions(token)),
   getImage: (img) => dispatch(gravatarImageAction(img)),
 });
@@ -76,6 +81,7 @@ Game.propTypes = {
   getQuestions: PropTypes.func.isRequired,
   getImage: PropTypes.func.isRequired,
   gravatarImage: PropTypes.string.isRequired,
+  assertions: PropTypes.string.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Game);

@@ -12,10 +12,9 @@ const player = (state = INITIAL_STATE, action) => {
     case CHANGE_SCORE:
       return {
         ...state,
-        score: 0,
+        score: action.changeScore,
       };
     case CHANGE_NAME:
-      console.log(action);
       return {
         ...state,
         name: action.changeName,
