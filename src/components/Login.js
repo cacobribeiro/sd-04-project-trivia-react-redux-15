@@ -32,8 +32,7 @@ class Login extends Component {
     localStorage.setItem('state', JSON.stringify(objeto));
     return (
       <div>
-        <label htmlFor="gamerName">
-          Name
+        <label htmlFor="gamerName">Name
           <input
             type="text"
             required="required"

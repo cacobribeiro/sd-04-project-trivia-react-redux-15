@@ -5,7 +5,7 @@ import MD5 from 'crypto-js/md5';
 import { changeScoreAction } from '../actions/PlayerAction';
 import { fetchQuestions } from '../actions/QuestionsAction';
 import Questions from './Question';
-
+// ASD
 class Game extends Component {
   constructor(props) {
     super(props);

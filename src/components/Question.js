@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { Redirect } from 'react-router-dom';
 import React from 'react';
 import { connect } from 'react-redux';
 import { changeScoreAction } from '../actions/PlayerAction';
@@ -6,7 +7,6 @@ import ButtonNext from './ButtonNext';
 import { findQuestionsTrueAction } from '../actions/FindQuestions';
 import { timeAction } from '../actions/TimeAction';
 import { disabledBtn, enableBtn } from '../services/DisabledButtons';
-import { Redirect } from 'react-router-dom';
 
 class Questions extends React.Component {
   constructor(props) {
