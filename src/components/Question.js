@@ -83,7 +83,7 @@ class Questions extends React.Component {
   render() {
     const { data, QuestionsLoading, time, index } = this.props;
     if (QuestionsLoading) return <p>L O A D I N G . . . </p>;
-    if (index > 4) return <Redirect to="/" />;
+    if (index > 4) return <Redirect to="/feedback" />;
     const questions = [...data[index].incorrect_answers, data[index].correct_answer].sort();
     return (
       <div>

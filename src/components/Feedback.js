@@ -11,7 +11,7 @@ class Feedback extends Component {
 
   feedbackMessage() {
     const { assertions } = this.props;
-    if (assertions > 3) {
+    if (assertions < 3) {
       return 'Podia ser melhor...';
     }
     return 'Mandou bem!';
@@ -28,10 +28,14 @@ class Feedback extends Component {
         <h2 data-testid="feedback-total-score">Placar final: {score}</h2>
         <h2 data-testid="feedback-total-question">Total de perguntar respondidas: {assertions}</h2>
         <Link to="/">
-          <button data-testid="btn-play-again" type="submit">Jogar novamente</button>
+          <button data-testid="btn-play-again" type="submit">
+            Jogar novamente
+          </button>
         </Link>
         <Link to="/ranking">
-          <button data-testid="btn-ranking" type="submit">Ver Ranking</button>
+          <button data-testid="btn-ranking" type="submit">
+            Ver Ranking
+          </button>
         </Link>
       </div>
     );

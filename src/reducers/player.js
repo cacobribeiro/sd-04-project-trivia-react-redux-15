@@ -2,7 +2,7 @@ const { CHANGE_SCORE, CHANGE_NAME, CHANGE_EMAIL } = require('../actions/PlayerAc
 
 const INITIAL_STATE = {
   name: '',
-  assertions: '',
+  assertions: 0,
   score: 0,
   gravatarEmail: '',
 };
@@ -13,6 +13,7 @@ const player = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         score: action.changeScore,
+        assertions: state.assertions + 1,
       };
     case CHANGE_NAME:
       return {
