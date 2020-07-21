@@ -27,11 +27,11 @@ const player = (state = INITIAL_STATE, action) => {
       };
     case RESET:
       return {
-          name: '',
-          assertions: 0,
-          score: 0,
-          gravatarEmail: '',
-      }
+        name: '',
+        assertions: 0,
+        score: 0,
+        gravatarEmail: '',
+      };
     default:
       return state;
   }

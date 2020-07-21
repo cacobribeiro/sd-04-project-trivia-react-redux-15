@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -11,7 +12,7 @@ class Ranking extends Component {
   }
 
   handleButton() {
-    const {resetIndex, resetPlayer} = this.props;
+    const { resetIndex, resetPlayer } = this.props;
     resetIndex(0);
     resetPlayer();
   }
@@ -39,6 +40,11 @@ class Ranking extends Component {
     );
   }
 }
+
+Ranking.propTypes = {
+  resetIndex: PropTypes.func.isRequired,
+  resetPlayer: PropTypes.func.isRequired,
+};
 
 const mapDispatchToProps = (dispatch) => ({
   resetIndex: (num) => dispatch(indexAction(num)),

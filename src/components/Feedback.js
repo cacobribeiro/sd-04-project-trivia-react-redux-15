@@ -33,7 +33,7 @@ class Feedback extends Component {
   }
 
   handleButton() {
-    const {resetIndex, resetPlayer} = this.props;
+    const { resetIndex, resetPlayer } = this.props;
     resetIndex(0);
     resetPlayer();
   }
@@ -80,6 +80,8 @@ Feedback.propTypes = {
   gamerName: PropTypes.string.isRequired,
   assertions: PropTypes.string.isRequired,
   gravatarImage: PropTypes.string.isRequired,
+  resetPlayer: PropTypes.func.isRequired,
+  resetIndex: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Feedback);
