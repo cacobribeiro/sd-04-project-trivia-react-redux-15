@@ -10,11 +10,11 @@ class Ranking extends Component {
         <h2>Ranking</h2>
         <div>
           {sortScore.map((person, index) => (
-              <span>
-                <img src={person.picture} alt={person.picture} />
-                <h2 data-testid={`player-name-${index}`}>{person.name}</h2>
-                <h2 data-testid={`player-score-${index}`}>{person.score}</h2>
-              </span>
+            <span>
+              <img src={person.picture} alt={person.picture} />
+              <h2 data-testid={`player-name-${index}`}>{person.name}</h2>
+              <h2 data-testid={`player-score-${index}`}>{person.score}</h2>
+            </span>
           ))}
         </div>
         <Link to="/">
