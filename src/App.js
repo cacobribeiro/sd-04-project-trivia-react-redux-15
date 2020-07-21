@@ -6,6 +6,7 @@ import Login from './components/Login';
 import Settings from './components/Settings';
 import Game from './components/Game';
 import Feedback from './components/Feedback';
+import Ranking from './components/Ranking';
 
 export default function App() {
   return (
@@ -14,6 +15,7 @@ export default function App() {
         <div className="App">
           <header className="App-header">
             <img src={logo} className="App-logo" alt="logo" />
+            <Route exact path="/ranking" component={Ranking} />
             <Route exact path="/feedback" component={Feedback} />
             <Route exact path="/game-screen" component={Game} />
             <Route exact path="/settings" component={Settings} />

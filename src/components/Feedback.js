@@ -9,6 +9,20 @@ class Feedback extends Component {
     this.feedbackMessage = this.feedbackMessage.bind(this);
   }
 
+  componentDidMount() {
+    const { gravatarImage, gamerName, score } = this.props;
+    const arrayPeople = JSON.parse(localStorage.getItem('ranking'));
+    const newGamer = { name: gamerName, score, picture: gravatarImage };
+    console.log(arrayPeople);
+    console.log(newGamer)
+    if (arrayPeople) {
+      arrayPeople.push(newGamer);
+      localStorage.setItem('ranking', JSON.stringify(arrayPeople));
+    } else {
+      localStorage.setItem('ranking', JSON.stringify([newGamer]));
+    }
+  }
+
   feedbackMessage() {
     const { assertions } = this.props;
     if (assertions < 3) {
