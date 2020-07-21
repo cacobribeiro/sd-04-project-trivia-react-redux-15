@@ -7,7 +7,7 @@ class Ranking extends Component {
     const sortScore = arrayPeople.sort((a, b) => b.score - a.score);
     return (
       <div>
-        <h2>Ranking</h2>
+        <h2 data-testid="ranking-title">Ranking</h2>
         <div>
           {sortScore.map((person, index) => (
             <span>
