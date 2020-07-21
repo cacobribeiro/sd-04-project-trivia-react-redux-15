@@ -46,7 +46,7 @@ class Feedback extends Component {
         <h2 data-testid="header-player-name">{gamerName}</h2>
         <h2 data-testid="header-score">{score}</h2>
         <h2 data-testid="feedback-text">{this.feedbackMessage()}</h2>
-        <h2 data-testid="feedback-total-score">Placar final: {score}</h2>
+        <h2 data-testid="feedback-total-score">{score}</h2>
         <h2 data-testid="feedback-total-question">Total de perguntar respondidas: {assertions}</h2>
         <Link to="/">
           <button data-testid="btn-play-again" type="submit" onClick={() => this.handleButton()}>
