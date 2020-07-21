@@ -1,0 +1,33 @@
+.login-screen {
+  background: #ffffff;
+  height: 474px;
+  position: absolute;
+  width: 792px;
+}
+
+.score-points {
+  background: #310a0a;
+  height: 37px;
+  position: absolute;
+  width: 37px;
+}
+
+.btn-login {
+  background: #86d660;
+  height: 83px;
+  position: absolute;
+  width: 444px;
+}
+
+.btn-jogar-text {
+  color: #000000;
+  font-family: Roboto;
+  font-size: 40px;
+  font-style: normal;
+  font-weight: normal;
+  height: 47px;
+  line-height: 47px;
+  position: absolute;
+  text-align: center;
+  width: 138px;
+}
