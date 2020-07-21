@@ -6,6 +6,7 @@ import ButtonNext from './ButtonNext';
 import { findQuestionsTrueAction } from '../actions/FindQuestions';
 import { timeAction } from '../actions/TimeAction';
 import { disabledBtn, enableBtn } from '../services/DisabledButtons';
+import { Redirect } from 'react-router-dom';
 
 class Questions extends React.Component {
   constructor(props) {
@@ -82,6 +83,7 @@ class Questions extends React.Component {
   render() {
     const { data, QuestionsLoading, time, index } = this.props;
     if (QuestionsLoading) return <p>L O A D I N G . . . </p>;
+    if (index > 4) return <Redirect to="/" />;
     const questions = [...data[index].incorrect_answers, data[index].correct_answer].sort();
     return (
       <div>
