@@ -1,0 +1,58 @@
+.container-login {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin-top: 5%;
+  width: 40%;
+}
+
+input {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  display: inline-block;
+  margin: 8px 0;
+  padding: 12px 20px;
+  width: 100%;
+}
+
+input:focus {
+  border: 3px solid rgb(129, 23, 23);
+}
+
+label {
+  color: white;
+  font-family: monospace;
+  font-size: 1.9em;
+}
+
+.container-button {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.button-login {
+  background: linear-gradient(to bottom, #768d87 5%, #6c7c7c 100%);
+  background-color: #768d87;
+  border: 1px solid #566963;
+  border-radius: 5px;
+  box-shadow: inset 0 1px 3px 0 #91b8b3;
+  color: white;
+  cursor: pointer;
+  display: inline-block;
+  font-family: monospace;
+  font-size: 20px;
+  font-weight: 700;
+  margin: 10% 45%;
+  padding: 11px 23px;
+  text-decoration: none;
+  text-shadow: 0 -1px 0 #2b665e;
+  width: 170%;
+}
+
+.button-login:hover {
+  background: linear-gradient(to bottom, #6c7c7c 5%, #768d87 100%);
+  background-color: #6c7c7c;
+}

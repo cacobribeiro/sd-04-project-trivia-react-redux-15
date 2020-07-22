@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { fetchToken } from '../actions/index';
 import { changeNameAction, changeEmailAction } from '../actions/PlayerAction';
+import '../styles/Login.css';
 
 class Login extends Component {
   constructor(props) {
@@ -15,12 +16,17 @@ class Login extends Component {
     const { getTokenGamer } = this.props;
     return gamerEmail !== '' && gamerName !== '' ? (
       <Link to={'/game-screen'}>
-        <button type="submit" data-testid="btn-play" onClick={() => getTokenGamer()}>
+        <button
+          type="submit"
+          className="button-login"
+          data-testid="btn-play"
+          onClick={() => getTokenGamer()}
+        >
           Jogar
         </button>
       </Link>
     ) : (
-      <button type="button" disabled="disabled" data-testid="btn-play">
+      <button className="button-login" type="button" disabled="disabled" data-testid="btn-play">
         Jogar
       </button>
     );
@@ -31,30 +37,29 @@ class Login extends Component {
     const objeto = { player: { name: gamerName, assertions, score, gravatarEmail: gamerEmail } };
     localStorage.setItem('state', JSON.stringify(objeto));
     return (
-      <div>
-        <label htmlFor="gamerName">Name
-          <input
-            type="text"
-            required="required"
-            name="gamerName"
-            data-testid="input-player-name"
-            onChange={(e) => this.props.changeName(e.target.value)}
-          />
-        </label>
-        <label htmlFor="gamerEmail">
-          Email
-          <input
-            type="email"
-            required="required"
-            name="gamerEmail"
-            data-testid="input-gravatar-email"
-            onChange={(e) => this.props.changeEmail(e.target.value)}
-          />
-        </label>
-        {this.buttonFunction({ gamerName, gamerEmail })}
-        <Link to="/settings">
-          <button data-testid="btn-settings">Settings</button>
-        </Link>
+      <div className="container-login">
+        <label htmlFor="gamerName">Nome do Jogador:</label>
+        <input
+          type="text"
+          required="required"
+          name="gamerName"
+          data-testid="input-player-name"
+          onChange={(e) => this.props.changeName(e.target.value)}
+        />
+        <label htmlFor="gamerEmail">Email:</label>
+        <input
+          type="email"
+          required="required"
+          name="gamerEmail"
+          data-testid="input-gravatar-email"
+          onChange={(e) => this.props.changeEmail(e.target.value)}
+        />
+        <div className="container-button">
+          {this.buttonFunction({ gamerName, gamerEmail })}
+          <Link to="/settings">
+            <button className="button-login" data-testid="btn-settings">Settings</button>
+          </Link>
+        </div>
       </div>
     );
   }

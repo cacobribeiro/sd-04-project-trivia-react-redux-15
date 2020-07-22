@@ -15,12 +15,14 @@ export default function App() {
         <div className="App">
           <header className="App-header">
             <img src={logo} className="App-logo" alt="logo" />
+          </header>
+          <div className="container">
             <Route exact path="/ranking" component={Ranking} />
             <Route exact path="/feedback" component={Feedback} />
             <Route exact path="/game-screen" component={Game} />
             <Route exact path="/settings" component={Settings} />
             <Route exact path="/" component={Login} />
-          </header>
+          </div>
         </div>
       </Switch>
     </BrowserRouter>
