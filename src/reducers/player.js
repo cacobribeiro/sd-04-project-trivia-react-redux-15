@@ -1,4 +1,4 @@
-const { CHANGE_SCORE, CHANGE_NAME, CHANGE_EMAIL } = require('../actions/PlayerAction');
+const { CHANGE_SCORE, CHANGE_NAME, CHANGE_EMAIL, RESET } = require('../actions/PlayerAction');
 
 const INITIAL_STATE = {
   name: '',
@@ -24,6 +24,13 @@ const player = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         gravatarEmail: action.changeEmail,
+      };
+    case RESET:
+      return {
+        name: '',
+        assertions: 0,
+        score: 0,
+        gravatarEmail: '',
       };
     default:
       return state;

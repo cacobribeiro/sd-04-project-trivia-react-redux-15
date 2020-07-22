@@ -23,13 +23,7 @@ class Game extends Component {
     const { gamerEmail, getImage, gravatarImage } = this.props;
     const hash = MD5(gamerEmail.trim().toLowerCase());
     getImage(`https://www.gravatar.com/avatar/${hash}`);
-    return (
-      <img
-        data-testid="header-profile-picture"
-        src={gravatarImage}
-        alt="avatar"
-      />
-    );
+    return <img data-testid="header-profile-picture" src={gravatarImage} alt="avatar" />;
   }
 
   render() {
@@ -47,7 +41,7 @@ class Game extends Component {
           <span>
             {this.getAvatar()}
             <p data-testid="header-player-name">Jogador: {gamerName}</p>
-            <p data-testid="header-score">Pontos: {score}</p>
+            <p data-testid="header-score">{score}</p>
           </span>
         </header>
         <Questions />
