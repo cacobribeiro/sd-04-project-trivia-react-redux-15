@@ -1,3 +1,12 @@
+# Projeto realizadoo dentro da Trybe, em conjunto com mais 2 pessoas desenvolvedoras, bastate agregador para consolidar conhecimento, projeto está sem CSS, conforme eu tiver tempo implementarei algumas coisas e refatorarei algumas outras...
+
+META: 
+
+- Refatorar alguns trechos
+- Criar Redux + Hooks para gerenciar estados.
+- Criação de um CSS Responsivo.
+
+
 # Boas vindas ao repositório do projeto de Trivia!
 
 Você já usa o GitHub diariamente para desenvolver os exercícios, certo? Agora, para desenvolver os projetos, você deverá seguir as instruções a seguir. Fique atento a cada passo, e se tiver qualquer dúvida, nos envie por _Slack_! #vqv 🚀
